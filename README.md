@@ -32,3 +32,42 @@ B. Assumed knowledge. This is what the user says they know. Statements about the
 
 
 When teaching a subject/topic, the AI Agent will also need to find further resources to challenge the user's mastery of the topic through the internet. This is expected as is part of the subject context that they AI agent is expected to find before the user is given a task. 
+
+
+## Smoke test
+
+### Env vars
+
+- `ANTHROPIC_API_KEY` — tutor and LLM grader
+- `TYPESAFE_API_KEY` — Jev grader and claim judge
+- Without a Jev key, set `grader: "llm"` in `src/config.ts`
+
+### Start
+
+```sh
+npm install
+npm start -- ann        # or `npm start` and type a username
+```
+
+The database lives at `data/cogload.db`. Tasks go to `workspace/<taskId>/`. Tutor and grader errors show a generic message, and their details go to `data/errors.log`. After an error with no task open, type `next` to retry.
+
+### 10-minute walkthrough
+
+1. `npm start -- ann`. Answer the intake question and the tutor's follow-up.
+2. Open `workspace/<taskId>/TASK.md`. Edit `solution.ts` or `answer.md`.
+3. `ask <question>` about what the task wants. A solution question gets declined.
+4. `hint` once.
+5. `submit`. Give a confidence (0, 12.5 … 100), then read the grade.
+6. On the next task, `quit` without submitting.
+7. `npm start -- ann` again. Intake is skipped. Type `status`.
+8. `quit`, then `npm run export` and check `data/export.jsonl`. The quit task shows as `abandoned` with its hint count and hints. Export covers all users, and `npm run export -- ann` narrows it to one.
+
+### Live integration tests
+
+```sh
+export ANTHROPIC_API_KEY=...
+export TYPESAFE_API_KEY=...
+npm test
+```
+
+The tutor test needs `ANTHROPIC_API_KEY`. The grader fixtures need both keys. Each one is skipped when its keys are missing.

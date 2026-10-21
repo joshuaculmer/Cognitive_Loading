@@ -1,0 +1,65 @@
+[
+  {
+    "id": "call-stack",
+    "name": "The call stack",
+    "summary": "Each function call pushes a frame holding its arguments, locals, and return address, and the frame pops when the call returns.",
+    "prerequisites": [],
+    "related": ["recursion-tracing"]
+  },
+  {
+    "id": "recursion",
+    "name": "Recursion",
+    "summary": "A recursive function solves a problem by calling itself on smaller instances of the same problem and combining the results.",
+    "prerequisites": ["call-stack"],
+    "related": ["dp-state-transition"]
+  },
+  {
+    "id": "base-case",
+    "name": "Base cases",
+    "summary": "A base case answers the smallest inputs directly so every chain of recursive calls is guaranteed to stop.",
+    "prerequisites": ["recursion"],
+    "related": ["dp-state-transition"]
+  },
+  {
+    "id": "recursion-tracing",
+    "name": "Tracing recursion",
+    "summary": "Tracing follows each recursive call and return by hand, often as a call tree, to predict what a recursive function outputs.",
+    "prerequisites": ["recursion", "base-case"],
+    "related": ["call-stack"]
+  },
+  {
+    "id": "recursive-complexity",
+    "name": "Complexity of recursive functions",
+    "summary": "The time and space cost of a recursive function comes from counting the calls in its call tree, the work per call, and the maximum stack depth.",
+    "prerequisites": ["recursion-tracing"],
+    "related": ["bottom-up-dp"]
+  },
+  {
+    "id": "memoization",
+    "name": "Memoization",
+    "summary": "Memoization caches the result of each call by its arguments so repeated subproblems are computed only once.",
+    "prerequisites": ["recursion", "recursive-complexity"],
+    "related": ["bottom-up-dp"]
+  },
+  {
+    "id": "top-down-dp",
+    "name": "Top-down dynamic programming",
+    "summary": "Top-down DP writes the natural recursive solution and adds memoization so overlapping subproblems collapse into polynomial work.",
+    "prerequisites": ["memoization"],
+    "related": ["bottom-up-dp"]
+  },
+  {
+    "id": "dp-state-transition",
+    "name": "DP states and transitions",
+    "summary": "A DP solution defines a state that captures each subproblem and a transition that computes a state's answer from smaller states.",
+    "prerequisites": ["top-down-dp"],
+    "related": ["recursion", "base-case"]
+  },
+  {
+    "id": "bottom-up-dp",
+    "name": "Bottom-up dynamic programming",
+    "summary": "Bottom-up DP fills a table of states in an order where every dependency is already computed, replacing recursion with iteration.",
+    "prerequisites": ["dp-state-transition"],
+    "related": ["recursive-complexity", "memoization", "top-down-dp"]
+  }
+]
